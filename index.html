@@ -1,0 +1,267 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" sizes="180x180" type="image/png" href="..." /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Awarely</title>
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Js -->
+    <script type="module" crossorigin src="js/script.js"></script>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+
+  <body>
+    <div id="root">
+      <nav class="mainNav">
+        <div class="brand">
+          <img src="Assets/Logo.png" alt="logo" id="logo" />
+          <a href="#" class="mainNav-Logo">Awarely</a>
+        </div>
+
+        <div class="mainNav-Nav">
+          <a href="#Home">Home</a>
+          <a href="#Features">Features</a>
+          <a href="#Conseling">Conseling</a>
+          <a href="#Motivation">Motivation</a>
+        </div>
+
+        <!-- Profile section -->
+        <div class="profile-section">
+            <button class="profile-button" id="profileButton">
+                <div class="profile-icon" id="profileIcon">U</div>
+                <span id="profileName">Loading...</span>
+                <span class="dropdown-arrow">▼</span>
+            </button>
+            
+            <div class="profile-dropdown" id="profileDropdown">
+                <a href="#profile" class="dropdown-item">
+                    <span class="dropdown-icon">👤</span>
+                    <span>Profile</span>
+                </a>
+                <a href="#settings" class="dropdown-item">
+                    <span class="dropdown-icon">⚙️</span>
+                    <span>Settings</span>
+                </a>
+                <a href="#logout" class="dropdown-item logout">
+                    <span class="dropdown-icon">🚪</span>
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+      </nav>
+
+<!-- Home Section-->>
+      <section id="Home">
+        <div id="tulisan">
+          <h1>Awarely</h1>
+          <p class="motto">"Tempat Aman untuk Suaramu Didengar."</p>
+
+          <p>
+            Kami percaya bahwa setiap suara, sekecil apa pun, berharga. Entah
+            kamu ingin melaporkan kekerasan, mencari motivasi untuk bangkit,
+            atau hanya butuh tempat untuk merasa didengar. Kami ada di sini,
+            mendampingimu tanpa prasangka.
+          </p>
+          <a href="#Features"><button id="Lanjutkan">Lanjutkan</button></a>
+        </div>
+        <div id="gambar">
+          <img src="Assets/image2.png" alt="image 2" id="image2" />
+        </div>
+      </section>
+
+<!-- Features Section-->
+      <section id="Features">
+        <div id="atas">
+            <div class="header-content">
+                <div class="kiri">Awarely -</div>
+                <div class="kanan">
+                    Langkah Kecil untuk Rasa<br>
+                    Aman yang Lebih Besar
+                </div>
+            </div>
+            <!-- <img src="Assets/Ellipse 1.png" alt="ellips 1" id="ellips1" /> -->
+            <button class="features-button">Features</button>
+        </div>
+    </section>
+
+        <div id="tengah">
+          <div class="Lapor">
+            <div class="logo">
+              <img src="Assets/lapor.png" alt="lapor" id="lapor" />
+            </div>
+            <div class="judul">Laporkan Kekerasan</div>
+            <div class="motto">Suaramu berharga. Laporkan.</div>
+            <p class="kata">
+              Dalam keadaan darurat, pengetahuan dasar bisa menyelamatkanmu.
+              Awarely menyediakan video dan ilustrasi tutorial bela diri yang
+              bisa kamu akses kapan saja, bahkan tanpa koneksi internet.
+            </p>
+            <a href="lapor.html"><button id="Laporkan">Laporkan</button></a>
+          </div>
+          <div class="Tutor">
+            <div class="logo">
+              <img src="Assets/Tutor.png" alt="tutor" id="tutor" />
+            </div>
+            <div class="judul">Tutorial Beladiri</div>
+            <div class="motto">Kenali risiko. Lindungi diri.</div>
+            <p class="kata">
+              Dalam keadaan darurat, pengetahuan dasar bisa menyelamatkanmu.
+              Awarely menyediakan video dan ilustrasi tutorial bela diri yang
+              bisa kamu akses kapan saja, bahkan tanpa koneksi internet.
+            </p>
+            <a href="tutor.html"><button id="Telusuri">Telusuri</button></a>
+          </div>
+          <div class="Motivasi">
+            <div class="logo">
+              <img src="Assets/Motivasi.png" alt="lapor" id="lapor" />
+            </div>
+            <div class="judul">Motivasi Harian</div>
+            <div class="motto">Kata-kata kecil, semangat besar.</div>
+            <p class="kata">
+              Setiap hari bisa terasa berat. Tapi kamu berhak mendapatkan
+              semangat. Fitur yang memungkinkan kamu menuliskan dan menyimpan
+              kata-kata motivasi untuk dibaca ulang di hari-hari sulit.
+            </p>
+            <a href="#Motivation"><button id="Telusuri">Telusuri</button>
+              </a>
+          </div>
+        </div>
+        <div id="bawah">
+          <p>Ingin menjadwalkan Konseling? Scroll</p>
+          <img src="Assets/Scroll Down.png" alt="scroll" id="scroll" />
+        </div>
+      </section>
+
+<!-- Conseling Section-->      
+      <section id="Conseling">
+        <div id="judul">
+          <h2>Layanan Konseling</h2>
+          <p><em>Ruang Aman untuk Pulih dan Didengar</em></p>
+        </div>
+
+        <div id="konten">
+          <!-- ULTKSP -->
+          <div id="kiri">
+            <div>ULTKSP</div>
+            <p>"Dibimbing oleh tenaga ahli yang berpengalaman."</p>
+            <hr />
+            <p>
+              Unit Layanan Terpadu Kekerasan Seksual dan Perundungan (ULTKSP)
+              merupakan tempat pelayanan bagi Mahasiswa FILKOM untuk memberikan
+              layanan informasi yang dibutuhkan termasuk menerima dan
+              mendokumentasikan laporan dugaan Kekerasan Seksual dan
+              Perundungan.
+            </p>
+            <div>
+              🛡️ Semua percakapan bersifat rahasia dan tidak dibagikan ke pihak
+              manapun tanpa izinmu.
+            </div>
+            <button id = "ult">Buat Janji →</button>
+          </div>
+
+          <!-- Rekan Melangkah -->
+          <div id="kanan">
+            <div>REKAN MELANGKAH</div>
+            <p>"Terkadang, yang dibutuhkan hanyalah didengarkan."</p>
+            <hr />
+            <p>
+              Bicara dengan orang yang seusia, yang pernah ada di posisi serupa,
+              bisa terasa lebih ringan. Konseling Rekan Sebaya adalah ruang
+              untukmu berbagi cerita tanpa tekanan. Pendampingnya adalah
+              mahasiswa terlatih yang telah melalui pelatihan mendengar aktif,
+              empati, dan prinsip kerahasiaan.
+            </p>
+            <div>
+              💬 Tujuan utama bukan untuk memberikan solusi, tapi menjadi tempat
+              aman untuk merasa tidak sendiri.
+            </div>
+            <button id = "rekan">Buat Janji →</button>
+          </div>
+        </div>
+      </section>
+
+<!-- Motivation Section-->>
+      <section id="Motivation">
+        <div id="judul">
+          <h1>Kata-kata Motivasi</h1>
+          <p class="motto">"Temani Langkahmu, Kuatkan Harimu"</p>
+        </div>
+
+        <div id="konten">
+          <div class="slider-wrapper">
+            <div class="slider atas">
+              <div class="box dark">
+                Kamu berarti. Ceritamu penting. Kamu penting.
+              </div>
+              <div class="box dark">
+                Hari ini kamu bertahan. Itu sudah luar biasa.
+              </div>
+              <div class="box dark">
+                Kamu tidak harus sempurna untuk pantas dihargai.
+              </div>
+              <div class="box dark">Apa yang kamu rasakan valid.</div>
+              <!-- Duplikat untuk loop -->
+              <div class="box dark">
+                Kamu berarti. Ceritamu penting. Kamu penting.
+              </div>
+              <div class="box dark">
+                Hari ini kamu bertahan. Itu sudah luar biasa.
+              </div>
+              <div class="box dark">
+                Kamu tidak harus sempurna untuk pantas dihargai.
+              </div>
+              <div class="box dark">Apa yang kamu rasakan valid.</div>
+            </div>
+          </div>
+
+          <div class="slider-wrapper">
+            <div class="slider bawah">
+              <div class="box light">
+                Aku bangga padamu, bahkan kalau kamu belum bisa bangga pada
+                dirimu sendiri.
+              </div>
+              <div class="box light">
+                Berani melapor bukan berarti kamu lemah, tapi kamu peduli pada
+                dirimu sendiri.
+              </div>
+              <div class="box light">
+                Istirahat bukan berarti lemah. Itu bagian dari merawat diri.
+              </div>
+              <div class="box light">Perlahan juga tetap maju.</div>
+              <!-- Duplikat untuk loop -->
+              <div class="box light">
+                Aku bangga padamu, bahkan kalau kamu belum bisa bangga pada
+                dirimu sendiri.
+              </div>
+              <div class="box light">
+                Berani melapor bukan berarti kamu lemah, tapi kamu peduli pada
+                dirimu sendiri.
+              </div>
+              <div class="box light">
+                Istirahat bukan berarti lemah. Itu bagian dari merawat diri.
+              </div>
+              <div class="box light">Perlahan juga tetap maju.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <!-- Icon -->
+    <script>
+      feather.replace();
+    </script>
+  </body>
+</html>
