@@ -79,7 +79,7 @@ function redirectTo(url) {
 
 async function checkLoginStatus() {
     try {
-    const res = await fetch("http://127.0.0.1:5000/me", {
+    const res = await fetch("https://awarely-be-flask-app.onrender.com/me", {
       method: "GET",
       credentials: "include" // Required for session cookies (Flask-Login)
     });
@@ -144,7 +144,7 @@ function handleAuthUI(isLoggedIn, user = null) {
 }
 
 function logoutUser() {
-  fetch("http://127.0.0.1:5000/logout", {
+  fetch("https://awarely-be-flask-app.onrender.com/logout", {
     method: "POST",
     credentials: "include"
   })
@@ -165,7 +165,7 @@ async function loginUser(email, password) {
   showLoader();
 
   try {
-    const response = await fetch("http://127.0.0.1:5000/login", {
+    const response = await fetch("https://awarely-be-flask-app.onrender.com/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -201,7 +201,7 @@ window.addEventListener("load", () => {
 
 // ==================== SIGNUP PAGE FUNCTIONALITY ====================
 async function registerUser(email, username, password) {
-  fetch("http://127.0.0.1:5000/register", {
+  fetch("https://awarely-be-flask-app.onrender.com/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
