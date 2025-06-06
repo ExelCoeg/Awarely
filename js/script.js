@@ -476,3 +476,11 @@ function getInitials(name) {
     .join("")
     .substring(0, 2);
 }
+
+
+
+  // Initial check
+  handleViewportChange(mediaQuery);
+
+
+
