@@ -149,7 +149,6 @@ function logoutUser() {
   })
     .then(res => res.json())
     .then(data => {
-      localStorage.setItem("userProfile", null);
       console.log("User logged out successfully."); 
       location.reload();
     })
@@ -175,7 +174,7 @@ async function loginUser(email, password) {
 
     if (response.ok) {
       // On success, show loader & redirect
-      localStorage.setItem("userProfile", JSON.stringify(result));
+      localStorage.setItem("userProfile", result);
       redirectTo("/index.html");  // or whatever page you want
     } else {
       alert("Login failed: " + (result.error || "Unknown error"));
@@ -643,5 +642,5 @@ function getInitials(name) {
 
 
 
-
+  
 
