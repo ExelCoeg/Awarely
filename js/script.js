@@ -586,6 +586,7 @@ function initializeProfileDropdown() {
       const href = this.getAttribute("href");
   
       if (href === "#logout") {
+        localStorage.removeItem("userProfile"); // Clear user data
         handleLogout();
       } else if (href === "#profile") {
         alert("Redirect ke halaman Profile");
