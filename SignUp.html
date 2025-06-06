@@ -22,9 +22,12 @@
     <link rel="stylesheet" href="css/login.css" />
 </head>
 <body>
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
     <div class="header">Sign Up</div>
     
-    <form class="form-container" id="signupForm">
+    <form method="post" class="form-container" id="signupForm">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Masukkan Username" required>
         <div class="error-message" id="username-error"></div>

@@ -1,7 +1,7 @@
 // Check which page we're on and initialize accordingly
 document.addEventListener("DOMContentLoaded", function () {
   // Check if we're on the login page
-  if (document.getElementById("login-username")) {
+  if (document.getElementById("login-email")) {
     initializeLoginPage();
   }
 
@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("signupForm")) {
     initializeSignupPage();
   }
+  checkLoginStatus();
 });
 
 // ==================== LOGIN PAGE FUNCTIONALITY ====================
@@ -38,12 +39,12 @@ function initializeLoginPage() {
     loginForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const username = document.getElementById("login-username").value.trim();
+      const email = document.getElementById("login-email").value.trim();
       const password = document.getElementById("login-password").value.trim();
 
       // Basic validation
-      if (!username) {
-        alert("Username tidak boleh kosong");
+      if (!email) {
+        alert("Email tidak boleh kosong");
         return;
       }
 
@@ -52,11 +53,12 @@ function initializeLoginPage() {
         return;
       }
 
-      if (username && password) {
+      if (email && password) {
         // Redirect to dashboard after successful login
-        window.location.href = "dashboard.html";
+        loginUser(email, password);
       }
     });
+
   }
 
   // Google login button (if exists)
@@ -69,8 +71,162 @@ function initializeLoginPage() {
     });
   }
 }
+function redirectTo(url) {
+  showLoader();
+  window.location.href = url;
+}
+
+
+async function checkLoginStatus() {
+    try {
+    const res = await fetch("http://127.0.0.1:5000/me", {
+      method: "GET",
+      credentials: "include" // Required for session cookies (Flask-Login)
+    });
+
+    if (res.ok) {
+      const user = await res.json();
+      console.log("Logged in user:", user);
+      localStorage.setItem("userProfile", JSON.stringify(user));
+      handleAuthUI(true, user);
+    } else if (res.status === 401) {
+      console.log("User not logged in.");
+      handleAuthUI(false);
+    } else {
+      console.warn("Unexpected response:", res.status);
+      handleAuthUI(false);
+    }
+  } catch (err) {
+    console.error("Network or server error:", err);
+    handleAuthUI(false);
+  }
+}
+
+function handleAuthUI(isLoggedIn, user = null) {
+  const authSection = document.querySelector(".auth-section");
+
+  if (isLoggedIn) {
+    // Hide Sign Up / Sign In buttons
+    if (authSection) authSection.style.display = "none";
+
+    // Optionally: show a welcome message or logout button
+    const profileSection = document.createElement("div");
+    profileSection.innerHTML = `
+      <div class="profile-section">
+            <button class="profile-button" id="profileButton">
+                <div class="profile-icon" id="profileIcon">U</div>
+                <span id="profileName">Loading...</span>
+                <span class="dropdown-arrow">▼</span>
+            </button>
+            
+            <div class="profile-dropdown" id="profileDropdown">
+                <a href="#profile" class="dropdown-item">
+                    <span class="dropdown-icon">👤</span>
+                    <span>Profile</span>
+                </a>
+                <a href="#settings" class="dropdown-item">
+                    <span class="dropdown-icon">⚙️</span>
+                    <span>Settings</span>
+                </a>
+                <a href="#logout" class="dropdown-item logout">
+                    <span class="dropdown-icon">🚪</span>
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </div>
+    `;
+
+    if (authSection) {
+      authSection.replaceWith(profileSection);
+    }
+    initializeProfileDropdown();
+  }
+}
+
+function logoutUser() {
+  fetch("http://127.0.0.1:5000/logout", {
+    method: "POST",
+    credentials: "include"
+  })
+    .then(res => res.json())
+    .then(data => {
+      localStorage.setItem("userProfile", null);
+      console.log("User logged out successfully."); 
+      location.reload();
+    })
+    .catch(err => {
+      console.error("Logout failed:", err);
+    });
+    handleAuthUI(false); // Update UI to reflect logout
+}
+
+
+async function loginUser(email, password) {
+  showLoader();
+
+  try {
+    const response = await fetch("http://127.0.0.1:5000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ email, password }),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      // On success, show loader & redirect
+      redirectTo("/index.html");  // or whatever page you want
+    } else {
+      alert("Login failed: " + (result.error || "Unknown error"));
+      hideLoader(); // Hide loader on failure
+    }
+  } catch (error) {
+    alert("Network error");
+    hideLoader();
+  }
+}
+
+function showLoader() {
+  document.getElementById("loading-overlay").style.display = "flex";
+}
+
+function hideLoader() {
+  document.getElementById("loading-overlay").style.display = "none";
+}
+window.addEventListener("load", () => {
+  hideLoader();
+});
+
 
 // ==================== SIGNUP PAGE FUNCTIONALITY ====================
+async function registerUser(email, username, password) {
+  fetch("http://127.0.0.1:5000/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "include", // important for Flask-Login sessions
+    body: JSON.stringify({ email, username, password })
+  })
+    .then(async (response) => {
+      if (response.ok) {
+        const data = await response.json();
+        alert("Registration successful!");
+        redirectTo("SignIn.html"); // Redirect to login page
+        console.log(data);
+      } else {
+        const error = await response.json();
+        alert("Registration failed: " + (error.error || response.statusText));
+      }
+    })
+    .catch((error) => {
+      console.error("Network error during registration:", error);
+      alert("Network error. Check the console.");
+    }).finally(() => {
+      hideLoader();
+    });
+  }
 function initializeSignupPage() {
   // Form elements
   const form = document.getElementById("signupForm");
@@ -327,12 +483,8 @@ function initializeSignupPage() {
         passwordValid &&
         confirmPasswordValid
       ) {
-        // Redirect to login page after successful registration
-        alert("Pendaftaran berhasil! Silakan login dengan akun baru Anda.");
-        window.location.href = "SignIn.html";
-      } else {
-        alert("Mohon perbaiki kesalahan pada form sebelum melanjutkan");
-      }
+        registerUser(email,username,password);
+      } 
     });
   }
 
@@ -393,51 +545,63 @@ document.getElementById("rekan").addEventListener("click", function () {
   window.location.href = "konsulKonselor.html";
 });
 
+function getCurrentUser(){
+  return JSON.parse(localStorage.getItem("userProfile")) || null;
+}
 // ==================== NAVBAR'S PROFILE FUNCTIONALITY ==================== //
 // Elements
-const profileButton = document.getElementById("profileButton");
-const profileDropdown = document.getElementById("profileDropdown");
+function initializeProfileDropdown() {
+  const profileName = document.getElementById("profileName");
+  const profileButton = document.getElementById("profileButton");
+  const profileDropdown = document.getElementById("profileDropdown");
+  
+  const userJson = localStorage.getItem('userProfile');  // this is a string
 
-// Toggle dropdown
-profileButton.addEventListener("click", function (e) {
-  e.stopPropagation();
-  profileButton.classList.toggle("active");
-  profileDropdown.classList.toggle("show");
-});
-
-// Close dropdown when clicking outside
-document.addEventListener("click", function (e) {
-  if (!document.querySelector(".profile-section").contains(e.target)) {
-    profileButton.classList.remove("active");
-    profileDropdown.classList.remove("show");
+  if (userJson) {
+    const userObj = JSON.parse(userJson);   // convert string back to object
+    profileName.textContent = userObj.username || "Guest User"; // Set profile name
+  } else {
+    console.log("No user data in localStorage");
   }
-});
-
-// Handle dropdown item clicks
-document.querySelectorAll(".dropdown-item").forEach((item) => {
-  item.addEventListener("click", function (e) {
-    e.preventDefault();
-    const href = this.getAttribute("href");
-
-    if (href === "#logout") {
-      handleLogout();
-    } else if (href === "#profile") {
-      alert("Redirect ke halaman Profile");
-    } else if (href === "#settings") {
-      alert("Redirect ke halaman Settings");
-    }
-
-    // Close dropdown
-    profileButton.classList.remove("active");
-    profileDropdown.classList.remove("show");
+  profileButton.addEventListener("click", function (e) {
+    e.stopPropagation();
+    profileButton.classList.toggle("active");
+    profileDropdown.classList.toggle("show");
   });
-});
+  
+  // Close dropdown when clicking outside
+  document.addEventListener("click", function (e) {
+    if (!document.querySelector(".profile-section").contains(e.target)) {
+      profileButton.classList.remove("active");
+      profileDropdown.classList.remove("show");
+    }
+  });
+  
+  // Handle dropdown item clicks
+  document.querySelectorAll(".dropdown-item").forEach((item) => {
+    item.addEventListener("click", function (e) {
+      e.preventDefault();
+      const href = this.getAttribute("href");
+  
+      if (href === "#logout") {
+        handleLogout();
+      } else if (href === "#profile") {
+        alert("Redirect ke halaman Profile");
+      } else if (href === "#settings") {
+        alert("Redirect ke halaman Settings");
+      }
+  
+      // Close dropdown
+      profileButton.classList.remove("active");
+      profileDropdown.classList.remove("show");
+    });
+  });
+}
 
 // Handle logout
 function handleLogout() {
   if (confirm("Apakah Anda yakin ingin logout?")) {
-    alert("Berhasil logout! Redirect ke halaman login");
-    window.location.href = "SignIn.html";
+    logoutUser();
   }
 }
 

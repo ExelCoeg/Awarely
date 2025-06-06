@@ -20,12 +20,16 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="css/login.css" />
+
 </head>
 <body>
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
     <div class = header >Sign In </div>
-    <form class="form-container">
-        <label for="login-username">Username</label>
-        <input type="text" id="login-username" name="username" placeholder="Masukkan Username" required>
+    <form class="form-container" id="signinForm" method="post">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" name="email" placeholder="Masukkan Email" required>
 
         <label for="login-password">Password</label>
         <input type="password" id="login-password" name="password" placeholder="Masukkan Password" required>
