@@ -87,7 +87,6 @@ async function checkLoginStatus() {
     if (res.ok) {
       const user = await res.json();
       console.log("Logged in user:", user);
-      localStorage.setItem("userProfile", JSON.stringify(user));
       handleAuthUI(true, user);
     } else if (res.status === 401) {
       console.log("User not logged in.");
@@ -176,6 +175,7 @@ async function loginUser(email, password) {
 
     if (response.ok) {
       // On success, show loader & redirect
+      localStorage.setItem("userProfile", JSON.stringify(result));
       redirectTo("/index.html");  // or whatever page you want
     } else {
       alert("Login failed: " + (result.error || "Unknown error"));
@@ -642,9 +642,6 @@ function getInitials(name) {
 }
 
 
-
-  // Initial check
-  handleViewportChange(mediaQuery);
 
 
 
