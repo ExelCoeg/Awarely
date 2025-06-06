@@ -174,7 +174,8 @@ async function loginUser(email, password) {
 
     if (response.ok) {
       // On success, show loader & redirect
-      localStorage.setItem("userProfile", JSON.stringify(result.user));
+      localStorage.setItem("userProfile", JSON.stringify({"email":email, "username": result.username}));
+      console.log("Login successful:", result);
       redirectTo("/index.html");  // or whatever page you want
     } 
     else {
