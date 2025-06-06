@@ -174,15 +174,17 @@ async function loginUser(email, password) {
 
     if (response.ok) {
       // On success, show loader & redirect
-      localStorage.setItem("userProfile", result);
+      localStorage.setItem("userProfile", JSON.stringify(result.user));
       redirectTo("/index.html");  // or whatever page you want
-    } else {
+    } 
+    else {
       alert("Login failed: " + (result.error || "Unknown error"));
-      hideLoader(); // Hide loader on failure
     }
   } catch (error) {
     alert("Network error");
-    hideLoader();
+  }
+  finally{
+    hideLoader(); // Ensure loader is hidden after operation
   }
 }
 
