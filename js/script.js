@@ -9,6 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("signupForm")) {
     initializeSignupPage();
   }
+  if(document.getElementById("reportForm")){
+    const reportForm = document.getElementById("reportForm");
+    if (reportForm) {
+      reportForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        sendReport();
+      });
+    }
+  }
   checkLoginStatus();
 });
 
@@ -22,7 +31,7 @@ function initializeLoginPage() {
   if (signupLink) {
     signupLink.addEventListener("click", function (e) {
       e.preventDefault();
-      window.location.href = "signup.html";
+      window.location.href = "SignUp.html";
     });
   }
 
@@ -89,6 +98,10 @@ async function checkLoginStatus() {
       console.log("Logged in user:", user);
       handleAuthUI(true, user);
     } else if (res.status === 401) {
+      if(window.location.pathname === "/lapor.html" || window.location.pathname === "/konsulULT.html" || window.location.pathname === "/konsulKonselor.html"){
+        console.warn("User not authenticated, redirecting to login page.");
+        redirectTo("/SignIn.html");
+      }
       console.log("User not logged in.");
       handleAuthUI(false);
     } else {
@@ -102,58 +115,61 @@ async function checkLoginStatus() {
 }
 
 function handleAuthUI(isLoggedIn, user = null) {
-  const authSection = document.querySelector(".auth-section");
-  const profileSection = document.querySelector(".profile-info");  
-  const profileName = profileSection.querySelector(".profile-info-name");
-  const profileEmail = profileSection.querySelector(".profile-info-email");
-  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-  profileEmail.textContent = isLoggedIn ? userProfile.email : "Not logged in";
-  profileName.textContent = isLoggedIn ? userProfile.username: "Guest User";
-  const exitButton = document.querySelector(".exit-button");
-  if (exitButton) {
-    exitButton.addEventListener("click", function () {
-      logoutUser();
-    });
-  }
-  
-  if (isLoggedIn) {
-    exitButton.style.display = "block"; // Show exit button if logged in
-    // Hide Sign Up / Sign In buttons
-    if (authSection) authSection.style.display = "none";
+  if(window.location.pathname === "/index.html" || window.location.pathname === "/"){
 
-    // Optionally: show a welcome message or logout button
-    const profileSection = document.createElement("div");
-    profileSection.className = "profile-section";
-    profileSection.innerHTML = `
-            <button class="profile-button" id="profileButton">
-                <div class="profile-icon" id="profileIcon">U</div>
-                <span id="profileName">Loading...</span>
-                <span class="dropdown-arrow">▼</span>
-            </button>
-            
-            <div class="profile-dropdown" id="profileDropdown">
-                <a href="#profile" class="dropdown-item">
-                    <span class="dropdown-icon">👤</span>
-                    <span>Profile</span>
-                </a>
-                <a href="#settings" class="dropdown-item">
-                    <span class="dropdown-icon">⚙️</span>
-                    <span>Settings</span>
-                </a>
-                <a href="#logout" class="dropdown-item logout">
-                    <span class="dropdown-icon">🚪</span>
-                    <span>Log Out</span>
-                </a>
-            </div>
-    `;
-
-    if (authSection) {
-      authSection.replaceWith(profileSection);
+    const authSection = document.querySelector(".auth-section");
+    const profileSection = document.querySelector(".profile-info");  
+    const profileName = profileSection.querySelector(".profile-info-name");
+    const profileEmail = profileSection.querySelector(".profile-info-email");
+    const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+    profileEmail.textContent = isLoggedIn ? userProfile.email : "Not logged in";
+    profileName.textContent = isLoggedIn ? userProfile.username: "Guest User";
+    const exitButton = document.querySelector(".exit-button");
+    if (exitButton) {
+      exitButton.addEventListener("click", function () {
+        logoutUser();
+      });
     }
-    initializeProfileDropdown();
-  }
-  else{
-    exitButton.style.display = "none"; // Hide exit button if not logged in
+    
+    if (isLoggedIn) {
+      exitButton.style.display = "block"; // Show exit button if logged in
+      // Hide Sign Up / Sign In buttons
+      if (authSection) authSection.style.display = "none";
+  
+      // Optionally: show a welcome message or logout button
+      const profileSection = document.createElement("div");
+      profileSection.className = "profile-section";
+      profileSection.innerHTML = `
+              <button class="profile-button" id="profileButton">
+                  <div class="profile-icon" id="profileIcon">U</div>
+                  <span id="profileName">Loading...</span>
+                  <span class="dropdown-arrow">▼</span>
+              </button>
+              
+              <div class="profile-dropdown" id="profileDropdown">
+                  <a href="#profile" class="dropdown-item">
+                      <span class="dropdown-icon">👤</span>
+                      <span>Profile</span>
+                  </a>
+                  <a href="#settings" class="dropdown-item">
+                      <span class="dropdown-icon">⚙️</span>
+                      <span>Settings</span>
+                  </a>
+                  <a href="#logout" class="dropdown-item logout">
+                      <span class="dropdown-icon">🚪</span>
+                      <span>Log Out</span>
+                  </a>
+              </div>
+      `;
+  
+      if (authSection) {
+        authSection.replaceWith(profileSection);
+      }
+      initializeProfileDropdown();
+    }
+    else{
+      exitButton.style.display = "none"; // Hide exit button if not logged in
+    }
   }
 }
 function logoutUser() {
@@ -229,7 +245,7 @@ async function registerUser(email, username, password) {
       if (response.ok) {
         const data = await response.json();
         alert("Registration successful!");
-        redirectTo("SignIn.html"); // Redirect to login page
+        redirectTo("/SignIn.html"); // Redirect to login page
         console.log(data);
       } else {
         const error = await response.json();
@@ -539,19 +555,6 @@ function navigateTo(page) {
   }
 }
 
-// Function to handle API requests (placeholder)
-function sendLoginRequest(username, password) {
-  // Replace with actual API call
-  console.log("Sending login request for:", username);
-  // fetch('/api/login', { ... })
-}
-
-function sendSignupRequest(username, email, password) {
-  // Replace with actual API call
-  console.log("Sending signup request for:", username, email);
-  // fetch('/api/signup', { ... })
-}
-
 // ==================== CONSELING FUNCTIONALITY ====================
 document.getElementById("ult").addEventListener("click", function () {
   window.location.href = "konsulULT.html";
@@ -657,7 +660,54 @@ function getInitials(name) {
     .substring(0, 2);
 }
 
+/* ==================== REPORT FUNCTIONALITY ====================*/
+async function sendReport() {
+    const assistance = document.querySelector('input[name="assistance"]:checked')?.value;
+    const contact = document.getElementById("contact").value;
+    const incident = document.getElementById("incident").value;
+    const date = document.getElementById("appointmentDate").value;
+    const time = document.getElementById("appointmentTime").value;
+    const loadingOverlay = document.getElementById("loading-overlay");
+    if (!assistance) {
+      alert("Silakan pilih apakah memerlukan pendampingan atau tidak.");
+      return;
+    }
 
+    const payload = {
+      contact: contact,
+      incident: incident,
+      assistance: assistance === "yes" ? "Perlu" : "Tidak",
+      date: date,
+      time: time
+    };
 
-  
+    showLoader();
+
+    try {
+      const response = await fetch("https://awarely-be-flask-app.onrender.com/report", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload),
+        credentials: "include" // Include cookies for session management
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alertMessage.style.display = "block";
+        alert("Laporan berhasil dikirim!");
+        form.reset();
+      } else {
+        alert(result.error || "Terjadi kesalahan saat mengirim laporan.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Terjadi kesalahan jaringan.");
+    } finally {
+      hideLoader();
+    }
+  }
+
 

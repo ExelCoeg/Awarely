@@ -1,142 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Awarely - Layanan Konseling</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Awarely - Layanan Konseling</title>
 
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script type="module" crossorigin src="js/script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
 
-    <link rel="stylesheet" href="css/fitur.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div id="alertMessage" class="alert-message">
-        Laporan berhasil dikirim! Terima kasih atas partisipasi Anda.
-      </div>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script type="module" crossorigin src="js/script.js"></script>
 
-      <div class="header">
-        <h1>Layanan Konseling</h1>
-        <p>"ULTKSP"</p>
-      </div>
+  <link rel="stylesheet" href="css/fitur.css" />
+</head>
 
-      <div class="form-container">
-        <form id="reportForm">
-          <div class="form-group">
+<body>
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+  <div class="container">
+    <div id="alertMessage" class="alert-message">
+      Laporan berhasil dikirim! Terima kasih atas partisipasi Anda.
+    </div>
+
+    <div class="header">
+      <h1>Layanan Konseling</h1>
+      <p>"ULTKSP"</p>
+    </div>
+
+    <div class="form-container">
+      <form id="reportForm">
+        <div class="form-group">
+          <div class="datetime-item">
+            <small>Tentukan Konselor</small>
+            <select id="counselorSelect" name="counselor" class="form-input" required>
+              <option value="">Pilih Konselor Dari ULTKSP</option>
+              <option value="Ibu Yuita">Ibu Yuita</option>
+              <option value="Pak Prasetyo">Pak Prasetyo</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contact">Kontak (WhatsApp/Line)</label>
+          <input type="text" id="contact" name="contact" class="form-input" placeholder="08xxxxxxxx" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="incident">Tolong ceritakan apa yang terjadi padamu!</label>
+          <textarea id="incident" name="incident" class="form-input textarea" placeholder="Ceritakan disini..."
+            required></textarea>
+        </div>
+
+        <div class="radio-group">
+          <label class="form-label">Ketersediaan mahasiswa untuk hadir konseling</label>
+          <div class="radio-container">
+            <div class="radio-item">
+              <input type="radio" id="online" name="assistance" value="Daring" required />
+              <label for="online">Daring</label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" id="offline" name="assistance" value="Luring" required />
+              <label for="offline">Luring</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tentukan jadwal pendampingan</label>
+          <div class="datetime-group">
             <div class="datetime-item">
-              <small>Tentukan Konselor</small>
-              <select
-                id="counselorSelect"
-                name="counselor"
-                class="form-input"
-                required
-              >
-                <option value="">Pilih Konselor Dari ULTKSP</option>
-                <option value="Ibu Yuita">Ibu Yuita</option>
-                <option value="Pak Prasetyo">Pak Prasetyo</option>
+              <small>Tentukan tanggal (Hanya pada hari kerja)</small>
+              <input type="date" id="appointmentDate" name="appointmentDate" class="form-input" required />
+            </div>
+            <div class="datetime-item">
+              <small>Tentukan jam</small>
+              <select id="timeSelect" name="appointmentTime" class="form-input" required>
+                <option value="">Pilih jam</option>
+                <option value="09:00">09.00</option>
+                <option value="10:00">10.00</option>
+                <option value="11:00">11.00</option>
+                <option value="13:00">13.00</option>
+                <option value="14:00">14.00</option>
+                <option value="15:00">15.00</option>
+                <option value="16:00">16.00</option>
               </select>
             </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="contact"
-              >Kontak (WhatsApp/Line)</label
-            >
-            <input
-              type="text"
-              id="contact"
-              name="contact"
-              class="form-input"
-              placeholder="08xxxxxxxx"
-              required
-            />
-          </div>
+        </div>
 
-          <div class="form-group">
-            <label class="form-label" for="incident"
-              >Tolong ceritakan apa yang terjadi padamu!</label
-            >
-            <textarea
-              id="incident"
-              name="incident"
-              class="form-input textarea"
-              placeholder="Ceritakan disini..."
-              required
-            ></textarea>
-          </div>
-
-          <div class="radio-group">
-            <label class="form-label"
-              >Ketersediaan mahasiswa untuk hadir konseling</label
-            >
-            <div class="radio-container">
-              <div class="radio-item">
-                <input
-                  type="radio"
-                  id="online"
-                  name="assistance"
-                  value="Daring"
-                  required
-                />
-                <label for="online">Daring</label>
-              </div>
-              <div class="radio-item">
-                <input
-                  type="radio"
-                  id="offline"
-                  name="assistance"
-                  value="Luring"
-                  required
-                />
-                <label for="offline">Luring</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Tentukan jadwal pendampingan</label>
-            <div class="datetime-group">
-              <div class="datetime-item">
-                <small>Tentukan tanggal (Hanya pada hari kerja)</small>
-                <input
-                  type="date"
-                  id="appointmentDate"
-                  name="appointmentDate"
-                  class="form-input"
-                  required
-                />
-              </div>
-              <div class="datetime-item">
-                <small>Tentukan jam</small>
-                <select
-                  id="timeSelect"
-                  name="appointmentTime"
-                  class="form-input"
-                  required
-                >
-                  <option value="">Pilih jam</option>
-                  <option value="09:00">09.00</option>
-                  <option value="10:00">10.00</option>
-                  <option value="11:00">11.00</option>
-                  <option value="13:00">13.00</option>
-                  <option value="14:00">14.00</option>
-                  <option value="15:00">15.00</option>
-                  <option value="16:00">16.00</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <button type="submit" class="submit-btn">Submit</button>
-        </form>
-      </div>
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
