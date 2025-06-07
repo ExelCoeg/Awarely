@@ -667,11 +667,6 @@ async function sendReport() {
     const incident = document.getElementById("incident").value;
     const date = document.getElementById("appointmentDate").value;
     const time = document.getElementById("appointmentTime").value;
-    const loadingOverlay = document.getElementById("loading-overlay");
-    if (!assistance) {
-      alert("Silakan pilih apakah memerlukan pendampingan atau tidak.");
-      return;
-    }
 
     const payload = {
       contact: contact,
@@ -698,7 +693,7 @@ async function sendReport() {
       if (response.ok) {
         alertMessage.style.display = "block";
         alert("Laporan berhasil dikirim!");
-        form.reset();
+        redirectTo("/index.html"); // Redirect to home page after successful report
       } else {
         alert(result.error || "Terjadi kesalahan saat mengirim laporan.");
       }
