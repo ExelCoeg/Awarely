@@ -1,26 +1,39 @@
 // Check which page we're on and initialize accordingly
 document.addEventListener("DOMContentLoaded", function () {
-  // Check if we're on the login page
-  if (document.getElementById("login-email")) {
+  if (window.location.pathname === "/SignIn.html") {
     initializeLoginPage();
   }
-
-  // Check if we're on the signup page
-  if (document.getElementById("signupForm")) {
+  if (window.location.pathname === "/SignUp.html") {
     initializeSignupPage();
   }
-  if(document.getElementById("reportForm")){
-    const reportForm = document.getElementById("reportForm");
-    if (reportForm) {
-      reportForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        sendReport();
-      });
-    }
+  if(window.location.pathname === "/lapor.html"){
+    initializeReportPage();
+  }
+  if(window.location.pathname === "/index.html" || window.location.pathname === "/"){
+    initializeHomePage();
   }
   checkLoginStatus();
 });
 
+function initializeReportPage() {
+  const reportForm = document.getElementById("reportForm");
+  if (reportForm) {
+    reportForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      sendReport();
+    });
+  }
+}
+function initializeHomePage(){
+  document.getElementById("ult").addEventListener("click", function () {
+      window.location.href = "konsulULT.html";
+    });
+
+    document.getElementById("rekan").addEventListener("click", function () {
+      window.location.href = "konsulKonselor.html";
+    });
+
+}
 // ==================== LOGIN PAGE FUNCTIONALITY ====================
 function initializeLoginPage() {
   const signupLink = document.getElementById("signup-link");
@@ -100,6 +113,7 @@ async function checkLoginStatus() {
     } else if (res.status === 401) {
       if(window.location.pathname === "/lapor.html" || window.location.pathname === "/konsulULT.html" || window.location.pathname === "/konsulKonselor.html"){
         console.warn("User not authenticated, redirecting to login page.");
+
         redirectTo("/SignIn.html");
       }
       console.log("User not logged in.");
@@ -116,7 +130,6 @@ async function checkLoginStatus() {
 
 function handleAuthUI(isLoggedIn, user = null) {
   if(window.location.pathname === "/index.html" || window.location.pathname === "/"){
-
     const authSection = document.querySelector(".auth-section");
     const profileSection = document.querySelector(".profile-info");  
     const profileName = profileSection.querySelector(".profile-info-name");
@@ -555,15 +568,6 @@ function navigateTo(page) {
   }
 }
 
-// ==================== CONSELING FUNCTIONALITY ====================
-document.getElementById("ult").addEventListener("click", function () {
-  window.location.href = "konsulULT.html";
-});
-
-document.getElementById("rekan").addEventListener("click", function () {
-  window.location.href = "konsulKonselor.html";
-});
-
 function getCurrentUser(){
   return JSON.parse(localStorage.getItem("userProfile")) || null;
 }
@@ -624,33 +628,8 @@ function handleLogout() {
   }
 }
 
-// Load profile saat halaman dimuat
-document.addEventListener("DOMContentLoaded", function () {
-  loadUserProfile();
-});
 
-function loadUserProfile() {
-  try {
-    const userData = JSON.parse(localStorage.getItem("userProfile"));
 
-    if (userData && userData.username) {
-      // Ada data user - update profile
-      const displayName = userData.fullName || userData.username;
-      const initials = getInitials(displayName);
-
-      document.getElementById("profileName").textContent = displayName;
-      document.getElementById("profileIcon").textContent = initials;
-    } else {
-      // Tidak ada data - tampilkan guest
-      document.getElementById("profileName").textContent = "Guest User";
-      document.getElementById("profileIcon").textContent = "G";
-    }
-  } catch (error) {
-    // Error - tampilkan default
-    document.getElementById("profileName").textContent = "User";
-    document.getElementById("profileIcon").textContent = "U";
-  }
-}
 
 function getInitials(name) {
   return name
