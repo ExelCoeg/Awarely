@@ -25,29 +25,38 @@
 </head>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const toggleBtn = document.getElementById("menu-toggle");
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
+    
     function handleSidebar(e) {
       if (e.matches) {
-        sidebar.classList.remove('show');
-        overlay.classList.remove('active');
+        disableSidebar();
       }
     }
 
     // Initial check
     handleSidebar(mediaQuery);
     // Listen for changes
+    const toggleBtn = document.getElementById("menu-toggle");
     mediaQuery.addEventListener('change', handleSidebar);
 
     toggleBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("show");
-      overlay.classList.toggle("active");
+      toggleSidebar();
     });
     overlay.addEventListener("click", () => {
-      sidebar.classList.remove("show");
-      overlay.classList.remove("active");
+      toggleSidebar();
     });
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      if( sidebar.classList.contains("show")) {
+        sidebar.classList.remove("show");
+        overlay.classList.remove("active");
+        overlay.style.display = 'none';   
+      } else {
+        overlay.style.display = 'block'; 
+        sidebar.classList.toggle("show");
+        overlay.classList.toggle("active");
+      }
+    }
   });
 </script>
 <script>
@@ -172,7 +181,9 @@
           Awarely menyediakan video dan ilustrasi tutorial bela diri yang
           bisa kamu akses kapan saja, bahkan tanpa koneksi internet.
         </p>
-        <a href="lapor.html"><button id="Laporkan">Laporkan</button></a>
+        <a href="lapor.html">
+          <button id="Laporkan">Laporkan</button>
+        </a>
       </div>
       <div class="Tutor">
         <div class="logo">
