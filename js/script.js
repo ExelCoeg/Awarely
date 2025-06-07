@@ -103,15 +103,28 @@ async function checkLoginStatus() {
 
 function handleAuthUI(isLoggedIn, user = null) {
   const authSection = document.querySelector(".auth-section");
-
+  const profileSection = document.querySelector(".profile-info");  
+  const profileName = profileSection.querySelector(".profile-info-name");
+  const profileEmail = profileSection.querySelector(".profile-info-email");
+  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+  profileEmail.textContent = isLoggedIn ? userProfile.email : "Not logged in";
+  profileName.textContent = isLoggedIn ? userProfile.username: "Guest User";
+  const exitButton = document.querySelector(".exit-button");
+  if (exitButton) {
+    exitButton.addEventListener("click", function () {
+      logoutUser();
+    });
+  }
+  
   if (isLoggedIn) {
+    exitButton.style.display = "block"; // Show exit button if logged in
     // Hide Sign Up / Sign In buttons
     if (authSection) authSection.style.display = "none";
 
     // Optionally: show a welcome message or logout button
     const profileSection = document.createElement("div");
+    profileSection.className = "profile-section";
     profileSection.innerHTML = `
-      <div class="profile-section">
             <button class="profile-button" id="profileButton">
                 <div class="profile-icon" id="profileIcon">U</div>
                 <span id="profileName">Loading...</span>
@@ -132,7 +145,6 @@ function handleAuthUI(isLoggedIn, user = null) {
                     <span>Log Out</span>
                 </a>
             </div>
-        </div>
     `;
 
     if (authSection) {
@@ -140,8 +152,10 @@ function handleAuthUI(isLoggedIn, user = null) {
     }
     initializeProfileDropdown();
   }
+  else{
+    exitButton.style.display = "none"; // Hide exit button if not logged in
+  }
 }
-
 function logoutUser() {
   fetch("https://awarely-be-flask-app.onrender.com/logout", {
     method: "POST",
@@ -578,7 +592,6 @@ function initializeProfileDropdown() {
       profileDropdown.classList.remove("show");
     }
   });
-  
   // Handle dropdown item clicks
   document.querySelectorAll(".dropdown-item").forEach((item) => {
     item.addEventListener("click", function (e) {

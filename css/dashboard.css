@@ -10,7 +10,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  z-index: 5000;
+  z-index: 3000;
 }
 
 /* ===== NavBar ===== */
@@ -103,35 +103,22 @@ body {
 .signup-button{
   margin-left: 10px;
   border-radius: 25px;
+  border: 2px solid #6f4e3f;
 }  
 .signin-button{
   margin-right: 10px;
   border-radius: 25px;
   color:white;
 }
-.button{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
-  background-color: #6f4e3f;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif; 
-  font-weight: 500;
-  transition: all 0.3s ease;
-}  
+
+.exit-button, .exit-button:focus, .exit-button:hover {
+  background-color: #ffff;
+}
 
 /* Profile Section */
 .profile-section {
-  position: relative;
-  display: flex;
-  align-items: center;
-}  
-
+  display: block;
+}
 .profile-button {
   display: flex;
   align-items: center;
@@ -402,6 +389,7 @@ body {
     max-width: 450px;
   }
   .profile-section {
+    display: none;
     position: absolute;
     right: 20px;
     top: 15px;
@@ -561,7 +549,8 @@ body {
 .kiri {
   font-size: 3.9rem;
   font-weight: 700;
-  color: #6f4e3f;
+  color: #6f4e3f; 
+  margin-right: 20px;
 }
 .header-content > h2 {
   font-size: 1.5rem;
@@ -722,6 +711,9 @@ body {
   text-align: center;
 }
 
+#Conseling >  .kiri .kanan{
+  z-index: 1000;
+}
 /* Judul */
 #judul h2 {
   margin-top: 5%;
@@ -834,7 +826,6 @@ button {
 .button-transparent{
   background-color: transparent;
   color: #6f4e3f;
-  border: 2px solid #6f4e3f;
 }
 button:hover {
   background-color: #dfd4c8;
@@ -1067,13 +1058,16 @@ footer p {
 }
 .profile-info {
   display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 10px;
-  border-radius: 15px;
-  margin-bottom: 20px;
+  flex-direction: column;
 }
-.profile-info > .profile-picture{
+.profile-info-name, .profile-info-email {
+  margin: 0;
+}
+.profile-card{
+  display:flex;
+  flex-direction: row;
+}
+.profile-picture{
   width: 45px;
   height: 45px;
   border-radius: 50%;
@@ -1083,6 +1077,7 @@ footer p {
   justify-content: center;
   color: white;
   font-weight: bold;
+  margin-right: 10px;
 }
 
 .menu-toggle {
@@ -1091,7 +1086,7 @@ footer p {
   font-size: 24px;
   cursor: pointer;
   color: #333;
-  z-index: 3000;
+  z-index: 9999;
   position: relative;
 }
 
