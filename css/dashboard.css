@@ -64,14 +64,15 @@ body, h1,h2,h3,p{
   font-weight: 600;
   color: #000000;
 }
-
 .mainNav .mainNav-Nav {
-  display: flex;
   color: #000000;
   font-size: 1.3rem;
   margin: 0;
 }
 
+.mainNav-Nav{
+  display:none;
+}
 .mainNav .mainNav-Nav a {
   margin: 0 1rem;
   color: inherit;
@@ -114,7 +115,7 @@ body, h1,h2,h3,p{
 
 /* Auth Section */
 .auth-section{
-  display:flex;
+  display:none;
 }  
 .signup-button{
   margin-left: 10px;
@@ -298,6 +299,7 @@ body, h1,h2,h3,p{
 .hero-button{
   margin-bottom: 30px;
 }
+
 .hero-image{
   margin-bottom: 30px;
 }
@@ -326,21 +328,6 @@ body, h1,h2,h3,p{
   right: -500px;
 }
 
-.mainNav > .menu-toggle{
-  display: block;
-  background-color: transparent;
-}
-.mainNav > .mainNav-Nav {
-  display: none;
-}
-
-.mainNav{
-  align-items: flex-end;
-}
-  
-.auth-section {
-  display: none;
-}
 /* Features Section */
 #features {
   border-radius: 30px;
@@ -703,13 +690,13 @@ button {
   background-color: var(--primary-color);
   color: #fff; 
 }
-
+.button-brown:hover {
+  background-color: var(--hover-color);
+  color: #fee;
+}
 .button-transparent{
   background-color: transparent;
   color: var(--primary-color);
-}
-button:hover {
-  background-color: #dfd4c8;
 }
 
 /* ===== Section Motivation ===== */
@@ -842,8 +829,16 @@ button:hover {
 }
 
 .sidebar-links{
-  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 70px;
+  gap: 15px;
 }
+.sidebar-links a {
+  display:flex;
+  align-items: center;
+}
+
 .profile-sidebar{
   margin-top: 150px;
 }
@@ -853,6 +848,13 @@ button:hover {
 }
 .profile-info-name, .profile-info-email {
   margin: 0;
+}
+.profile-info-name{
+  font-weight: 500;
+}
+.profile-info-email{
+  font-size: 0.9rem;
+  color: #666;
 }
 .profile-card{
   display:flex;
@@ -898,15 +900,22 @@ button:hover {
 }
 
 
-@media screen and (min-width: 1024px) {
+
+@media screen and (min-width: 1173px) {
   .profile-section {
     display: block;
     position: absolute;
     right: 20px;
     top: 15px;
   }
+  .auth-section{
+    display: inline;
+  }
   .menu-toggle{
     display: none;
+  }
+  .mainNav-Nav {
+    display: flex;
   }
   #hero{
     flex-direction: row;
@@ -919,22 +928,25 @@ button:hover {
     text-align: justify;
   }
   .hero-title{
-    font-size: 4rem;
+    font-size: 5rem;
   }
   .hero-subtitle{
     position: relative;
     top:-30px;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   .hero-description{
     position:relative;
     top: -50px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     width: 50%;
   }
   .hero-button{
     position: relative;
     top: -50px;
+  }
+  .hero-image > img{
+    width: 100%;
   }
   #features{
     align-items: center;
@@ -1037,5 +1049,21 @@ button:hover {
     padding: 0.2rem 1rem;
     width: 80%;
     margin-bottom: 20px;
+  }
+}
+@media screen and (min-width: 683px) {
+  .counseling-content-card p:first-of-type {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+  .counseling-content-card p:nth-of-type(2) {
+    font-weight: 300;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    padding: 0 1rem;
+  }
+  .counseling-content-card-footer{
+    font-size: 0.8rem;
   }
 }

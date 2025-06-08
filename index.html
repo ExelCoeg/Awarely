@@ -25,18 +25,14 @@
 </head>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-
-    function handleSidebar(e) {
-      if (e.matches) {
-        disableSidebar();
+    mediaQuery = window.matchMedia("(min-width: 1173px)");
+    mediaQuery.addEventListener("change", (e) => {
+      if(e.matches) {
+        toggleSidebar();
       }
-    }
-
-    // Initial check
-    handleSidebar(mediaQuery);
-    // Listen for changes
+    });
+    const overlay = document.getElementById("overlay");
     const toggleBtn = document.getElementById("menu-toggle");
-    mediaQuery.addEventListener('change', handleSidebar);
 
     toggleBtn.addEventListener("click", () => {
       toggleSidebar();
@@ -46,7 +42,6 @@
     });
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
       if (sidebar.classList.contains("show")) {
         sidebar.classList.remove("show");
         overlay.classList.remove("active");
@@ -80,24 +75,24 @@
         </button>
       </div>
       <div class="sidebar-links">
+        <a href="#Home">
+          <img src="Assets/House_01.svg" alt="">
+          <p>Beranda</p>
+        </a>
+        <a href="#Features">
+          <img src="Assets/List_Unordered.svg" alt="">
+          <p>Fitur</p>
+        </a>
+        <a href="#Conseling">
+          <img src="Assets/Users.svg" alt="">
+          <p>Konseling</p>
+        </a>
+        <a href="#Motivation">
+          <img src="Assets/Font.svg" alt="">
+          <p>Motivasi</p>
+        </a>
       </div>
 
-      <a href="#Home">
-        <img src="Assets/House_01.svg" alt="">
-        <p>Beranda</p>
-      </a>
-      <a href="#Features">
-        <img src="Assets/List_Unordered.svg" alt="">
-        <p>Fitur</p>
-      </a>
-      <a href="#Conseling">
-        <img src="Assets/Users.svg" alt="">
-        <p>Konseling</p>
-      </a>
-      <a href="#Motivation">
-        <img src="Assets/Font.svg" alt="">
-        <p>Motivasi</p>
-      </a>
     </div>
   </div>
   <div id="root">
@@ -116,12 +111,13 @@
 
       <div class="auth-section">
         <a href="/SignUp.html">
-          <button class="button-transparent signup-button" style="display:inline">Daftar</button>
+          <button class="button-transparent signup-button" >Daftar</button>
         </a>
         <a href="/SignIn.html">
-          <button class="button-brown signin-button" style="display:inline">Masuk</button>
+          <button class="button-brown signin-button">Masuk</button>
         </a>
       </div>
+
       <button class="menu-toggle" id="menu-toggle">&#9776;</button>
 
     </nav>
@@ -183,7 +179,7 @@
             bisa kamu akses kapan saja, bahkan tanpa koneksi internet.
           </p>
           <a href="lapor.html">
-            <button id="Laporkan">Laporkan →</button>
+            <button  class="button-brown" id="Laporkan">Laporkan →</button>
           </a>
         </div>
         <div class="features-content-tutor">
@@ -201,7 +197,7 @@
             Awarely menyediakan video dan ilustrasi tutorial bela diri yang
             bisa kamu akses kapan saja, bahkan tanpa koneksi internet.
           </p>
-          <a href="tutor.html"><button id="Telusuri">Telusuri →</button></a>
+          <a href="tutor.html"><button class="button-brown" id="Telusuri">Telusuri →</button></a>
         </div>
         <div class="features-content-motivasi">
           <div class="features-content-header">
@@ -218,7 +214,7 @@
             semangat. Fitur yang memungkinkan kamu menuliskan dan menyimpan
             kata-kata motivasi untuk dibaca ulang di hari-hari sulit.
           </p>
-          <a href="#Motivation"><button id="Telusuri">Telusuri →</button>
+          <a href="#Motivation"><button class="button-brown" id="Telusuri">Telusuri →</button>
           </a>
         </div>
       </div>
@@ -252,7 +248,7 @@
             Semua percakapan bersifat rahasia dan tidak dibagikan ke pihak
             manapun tanpa izinmu.
           </div>
-          <button id="ult">Buat Janji →</button>
+          <button class="button-brown"   id="ult">Buat Janji →</button>
         </div>
 
         <!-- Rekan Melangkah -->
