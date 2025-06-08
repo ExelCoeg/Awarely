@@ -701,7 +701,7 @@ async function sendReport() {
   }
 
 async function createCounseling(url){
-  const availability= document.querySelector('input[name="assistance"]:checked')?.value;
+  const availability= document.querySelector('input[name="availability"]:checked')?.value;
   const contact = document.getElementById("contact").value;
   const incident = document.getElementById("incident").value;
   const counselor = document.getElementById("counselorSelect").value;
