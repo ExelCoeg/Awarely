@@ -707,7 +707,7 @@ async function createCounseling(url){
   const counselor = document.getElementById("counselorSelect").value;
   const date = document.getElementById("appointmentDate").value;
   const time = document.getElementById("appointmentTime").value;
-
+  console.log(availability, contact, incident, counselor, date, time);
   const payload = {
     counselor: counselor,
     contact: contact,
