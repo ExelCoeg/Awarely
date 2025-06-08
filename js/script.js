@@ -684,4 +684,48 @@ async function sendReport() {
     }
   }
 
+async function createCounseling(){
+  const assistance = document.querySelector('input[name="assistance"]:checked')?.value;
+  const contact = document.getElementById("contact").value;
+  const incident = document.getElementById("incident").value;
+  const counselor = document.getElementById("counselorSelect").value;
+  const date = document.getElementById("appointmentDate").value;
+  const time = document.getElementById("appointmentTime").value;
 
+  const payload = {
+    counselor: counselor,
+    contact: contact,
+    assistance: assistance === "yes" ? "Perlu" : "Tidak",
+    incident: incident,
+    date: date,
+    time: time
+  };
+
+  showLoader();
+
+  try {
+    const response = await fetch("https://awarely-be-flask-app.onrender.com/counseling", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload),
+      credentials: "include" // Include cookies for session management
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alertMessage.style.display = "block";
+      alert("Konseling berhasil dibuat!");
+      redirectTo("/index.html"); // Redirect to home page after successful counseling creation
+    } else {
+      alert(result.error || "Terjadi kesalahan saat membuat konseling.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Terjadi kesalahan jaringan.");
+  } finally {
+    hideLoader();
+  }
+}
