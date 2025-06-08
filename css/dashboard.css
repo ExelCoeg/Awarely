@@ -746,7 +746,7 @@ body {
 #kanan {
   background-color: #6f4e3f;
   color: #fff;
-  padding: 2rem;
+  padding: 3rem;
   border-radius: 1rem;
   width: min(500px, 100%);
   position: relative;
@@ -849,6 +849,9 @@ button:hover {
     width: 100%;
     max-width: 350px;
   }
+  #kanan > div:first-child {
+  top: -60px;
+}
 }
 
 /* ===== Section Motivation ===== */
