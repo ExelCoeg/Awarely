@@ -12,6 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
   if(window.location.pathname === "/index.html" || window.location.pathname === "/"){
     initializeHomePage();
   }
+  if(window.location.pathname === "/konsulULT.html"){
+    initializeCounselingPage("https://awarely-be-flask-app.onrender.com/ultksp_counseling");
+  }
+  if(window.location.pathname === "/konsulKonselor.html"){
+    initializeCounselingPage("https://awarely-be-flask-app.onrender.com/rm_counseling");
+  }
   checkLoginStatus();
 });
 
@@ -21,6 +27,16 @@ function initializeReportPage() {
     reportForm.addEventListener("submit", function (e) {
       e.preventDefault();
       sendReport();
+    });
+  }
+}
+
+function initializeCounselingPage(url) {
+  const counselingForm = document.getElementById("counselingForm");
+  if (counselingForm) {
+    counselingForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      createCounseling(url);
     });
   }
 }
@@ -641,7 +657,7 @@ function getInitials(name) {
 
 /* ==================== REPORT FUNCTIONALITY ====================*/
 async function sendReport() {
-    const assistance = document.querySelector('input[name="assistance"]:checked')?.value;
+    const availability = document.querySelector('input[name="availability"]:checked')?.value;
     const contact = document.getElementById("contact").value;
     const incident = document.getElementById("incident").value;
     const date = document.getElementById("appointmentDate").value;
@@ -650,7 +666,7 @@ async function sendReport() {
     const payload = {
       contact: contact,
       incident: incident,
-      assistance: assistance === "yes" ? "Perlu" : "Tidak",
+      availability: availability,
       date: date,
       time: time
     };
@@ -684,8 +700,8 @@ async function sendReport() {
     }
   }
 
-async function createCounseling(){
-  const assistance = document.querySelector('input[name="assistance"]:checked')?.value;
+async function createCounseling(url){
+  const availability= document.querySelector('input[name="assistance"]:checked')?.value;
   const contact = document.getElementById("contact").value;
   const incident = document.getElementById("incident").value;
   const counselor = document.getElementById("counselorSelect").value;
@@ -695,16 +711,15 @@ async function createCounseling(){
   const payload = {
     counselor: counselor,
     contact: contact,
-    assistance: assistance === "yes" ? "Perlu" : "Tidak",
+    availability: availability,
     incident: incident,
     date: date,
     time: time
   };
 
   showLoader();
-
   try {
-    const response = await fetch("https://awarely-be-flask-app.onrender.com/counseling", {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
