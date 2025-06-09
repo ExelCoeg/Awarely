@@ -915,14 +915,11 @@ button {
 
 
 @media screen and (min-width: 1173px) {
-  .profile-section {
+  .profile-section,.auth-section {
     display: block;
     position: absolute;
     right: 20px;
     top: 15px;
-  }
-  .auth-section{
-    display: inline;
   }
   .menu-toggle{
     display: none;
