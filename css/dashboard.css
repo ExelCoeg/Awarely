@@ -21,11 +21,9 @@ body, h1,h2,h3,p{
 /* ===== NavBar ===== */
 .mainNav {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   padding: 15px 30px;
   position: fixed;
-  top: 0;
   left: 10%;
   right: 10%;
   border-radius: 0 0 25px 25px;
@@ -917,15 +915,12 @@ button {
 @media screen and (min-width: 1173px) {
   .profile-section,.auth-section {
     display: block;
-    position: absolute;
-    right: 20px;
-    top: 15px;
   }
   .menu-toggle{
     display: none;
   }
   .mainNav{
-    justify-content: start;
+    align-items:center;
   }
   .mainNav-Nav {
     display: flex;
