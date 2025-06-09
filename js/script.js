@@ -152,8 +152,9 @@ function handleAuthUI(isLoggedIn, user = null) {
     const profileName = profileSection.querySelector(".profile-info-name");
     const profileEmail = profileSection.querySelector(".profile-info-email");
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-    profileEmail.textContent = isLoggedIn ? userProfile.email : "Not logged in";
     profileName.textContent = isLoggedIn ? userProfile.username: "Guest User";
+    profileEmail.textContent = isLoggedIn ? userProfile.email : "Not logged in";
+    // Show or hide auth section based on login status
     const exitButton = document.querySelector(".exit-button");
     if (exitButton) {
       exitButton.addEventListener("click", function () {
@@ -165,37 +166,37 @@ function handleAuthUI(isLoggedIn, user = null) {
       exitButton.style.display = "block"; // Show exit button if logged in
       // Hide Sign Up / Sign In buttons
       if (authSection) authSection.style.display = "none";
-  
+      
       // Optionally: show a welcome message or logout button
       const profileSection = document.createElement("div");
       profileSection.className = "profile-section";
       profileSection.innerHTML = `
-              <button class="profile-button" id="profileButton">
-                  <div class="profile-icon" id="profileIcon">U</div>
+      <button class="profile-button" id="profileButton">
+      <div class="profile-icon" id="profileIcon">U</div>
                   <span id="profileName">Loading...</span>
                   <span class="dropdown-arrow">▼</span>
-              </button>
-              
-              <div class="profile-dropdown" id="profileDropdown">
+                  </button>
+                  
+                  <div class="profile-dropdown" id="profileDropdown">
                   <a href="#profile" class="dropdown-item">
-                      <span class="dropdown-icon">👤</span>
-                      <span>Profile</span>
+                  <span class="dropdown-icon">👤</span>
+                  <span>Profile</span>
                   </a>
                   <a href="#settings" class="dropdown-item">
-                      <span class="dropdown-icon">⚙️</span>
-                      <span>Settings</span>
+                  <span class="dropdown-icon">⚙️</span>
+                  <span>Settings</span>
                   </a>
                   <a href="#logout" class="dropdown-item logout">
-                      <span class="dropdown-icon">🚪</span>
-                      <span>Log Out</span>
+                  <span class="dropdown-icon">🚪</span>
+                  <span>Log Out</span>
                   </a>
-              </div>
-      `;
-  
-      if (authSection) {
-        authSection.replaceWith(profileSection);
-      }
-      initializeProfileDropdown();
+                  </div>
+                  `;
+                  
+                  if (authSection) {
+                    authSection.replaceWith(profileSection);
+                  }
+                  initializeProfileDropdown();
     }
     else{
       exitButton.style.display = "none"; // Hide exit button if not logged in
@@ -658,7 +659,7 @@ function getInitials(name) {
 
 /* ==================== REPORT FUNCTIONALITY ====================*/
 async function sendReport() {
-    const availability = document.querySelector('input[name="availability"]:checked')?.value;
+    const assistance = document.querySelector('input[name="assistance"]:checked')?.value;
     const contact = document.getElementById("contact").value;
     const incident = document.getElementById("incident").value;
     const date = document.getElementById("appointmentDate").value;
@@ -667,11 +668,11 @@ async function sendReport() {
     const payload = {
       contact: contact,
       incident: incident,
-      availability: availability,
+      assistance: assistance,
       date: date,
       time: time
     };
-
+    console.log(payload);
     showLoader();
 
     try {
