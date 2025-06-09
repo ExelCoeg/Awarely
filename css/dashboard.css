@@ -21,8 +21,8 @@ body, h1,h2,h3,p{
 /* ===== NavBar ===== */
 .mainNav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 15px 30px;
   position: fixed;
   top: 0;
@@ -260,7 +260,7 @@ body, h1,h2,h3,p{
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  width: 100%;
+  width: 80%;
 }
 .hero-title {
   display: flex;
@@ -926,6 +926,9 @@ button {
   }
   .menu-toggle{
     display: none;
+  }
+  .mainNav{
+    justify-content: start;
   }
   .mainNav-Nav {
     display: flex;
