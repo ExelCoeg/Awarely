@@ -671,7 +671,12 @@ hr {
 #rekan, #ult {
   border-radius: 13px;
   padding: 0.3rem 1rem;
+  background-color: var(--bg);
   color: var(--primary-color);
+}
+#rekan:hover, #ult:hover{
+  background-color: var(--hover-color);
+  color: #fff;
 }
 
 /* Tombol */
@@ -697,6 +702,14 @@ button {
 .button-transparent{
   background-color: transparent;
   color: var(--primary-color);
+}
+.button-light-brown{
+  background-color: var(--bg);
+  color: var(--primary-color);
+}
+.button-light-brown:hover{
+  background-color: #f0ebdf;
+  color: #a8907c;
 }
 
 /* ===== Section Motivation ===== */

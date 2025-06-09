@@ -25,14 +25,15 @@
 </head>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const toggleBtn = document.getElementById("menu-toggle");
     mediaQuery = window.matchMedia("(min-width: 1173px)");
     mediaQuery.addEventListener("change", (e) => {
-      if(e.matches) {
+      if(e.matches && sidebar.classList.contains("show")) {
         toggleSidebar();
       }
     });
-    const overlay = document.getElementById("overlay");
-    const toggleBtn = document.getElementById("menu-toggle");
 
     toggleBtn.addEventListener("click", () => {
       toggleSidebar();
@@ -41,7 +42,6 @@
       toggleSidebar();
     });
     function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
       if (sidebar.classList.contains("show")) {
         sidebar.classList.remove("show");
         overlay.classList.remove("active");
@@ -248,7 +248,7 @@
             Semua percakapan bersifat rahasia dan tidak dibagikan ke pihak
             manapun tanpa izinmu.
           </div>
-          <button class="button-brown"   id="ult">Buat Janji →</button>
+          <button class="button-light-brown" id="ult">Buat Janji →</button>
         </div>
 
         <!-- Rekan Melangkah -->
@@ -267,7 +267,7 @@
             Tujuan utama bukan untuk memberikan solusi, tapi menjadi tempat
             aman untuk merasa tidak sendiri.
           </div>
-          <button id="rekan">Buat Janji →</button>
+          <button class="button-light-brown" id="rekan">Buat Janji →</button>
         </div>
       </div>
     </section>
