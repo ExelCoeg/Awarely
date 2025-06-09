@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeCounselingPage("https://awarely-be-flask-app.onrender.com/rm_counseling");
   }
   checkLoginStatus();
+  
 });
 
 function initializeReportPage() {

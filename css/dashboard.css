@@ -115,14 +115,16 @@ body, h1,h2,h3,p{
 .auth-section{
   display:none;
 }  
-.signup-button{
+.signup-button,.signin-button{
+  font-weight: 500;
   margin-left: 10px;
   border-radius: 25px;
+  padding: 0.6rem 2.8rem;
+}
+.signup-button{
   border: 2px solid var(--primary-color);
 }  
 .signin-button{
-  margin-right: 10px;
-  border-radius: 25px;
   color:white;
 }
 
@@ -709,7 +711,10 @@ button {
   background-color: #f0ebdf;
   color: #a8907c;
 }
-
+.back-button{
+  width: 70px;
+  background-color: transparent;
+}
 /* ===== Section Motivation ===== */
 .motivation-title {
   text-align: center;

@@ -51,6 +51,14 @@
         overlay.classList.toggle("active");
       }
     }
+
+    const links = sidebar.querySelectorAll('a');
+
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        toggleSidebar();
+      });
+    });
   });
 </script>
 <div id="loading-overlay">
@@ -60,6 +68,7 @@
 
 <body>
   <div class="sidebar" id="sidebar">
+    <a class="back-button" href="#">← back</a>
     <div class="profile-sidebar">
       <div class="profile-card">
         <a href="/SignIn.html">
