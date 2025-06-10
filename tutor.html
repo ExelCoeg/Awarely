@@ -29,7 +29,7 @@
 
       <main class="tutorial-grid">
         <!-- Video 1 -->
-        <div class="video-card">
+        <a href="https://youtu.be/A6SBRY_rLu4" class="video-card">
           <div class="video-thumbnail">
             <img
               src="Assets\tutor1.png"
@@ -51,10 +51,9 @@
             </h3>
             <p class="video-author">Oleh: Max Deli Certified Nutritionist</p>
           </div>
-        </div>
-
+        </a>
         <!-- Video 2 -->
-        <div class="video-card">
+        <a href="https://youtu.be/6XK0Wj7gnsM?si=kTzzMMB5DFUiJNWZ" class="video-card">
           <div class="video-thumbnail">
             <img
               src="Assets\tutor2.png"
@@ -72,10 +71,10 @@
             <h3>Tips Unduk - Tips Bertahan Dari Penjahat di Jalanan</h3>
             <p class="video-author">Oleh: Bui Nakala</p>
           </div>
-        </div>
+        </a>
 
         <!-- Video 3 -->
-        <div class="video-card">
+        <a href="https://youtu.be/A6SBRY_rLu4" class="video-card">
           <div class="video-thumbnail">
             <img
               src="Assets\tutor1.png"
@@ -96,10 +95,10 @@
             </h3>
             <p class="video-author">Oleh: Max Deli Certified Nutritionist</p>
           </div>
-        </div>
+        </a>
 
         <!-- Video 4 -->
-        <div class="video-card">
+        <a href="https://youtu.be/A6SBRY_rLu4" class="video-card">
           <div class="video-thumbnail">
             <img src="Assets\tutor1.png" alt="Tutorial 4" />
             <div class="play-button">
@@ -118,10 +117,10 @@
             </h3>
             <p class="video-author">Oleh: Max Deli Certified Nutritionist</p>
           </div>
-        </div>
+        </a>
 
         <!-- Video 5 -->
-        <div class="video-card">
+        <a href="https://youtu.be/A6SBRY_rLu4" class="video-card">
           <div class="video-thumbnail">
             <img src="Assets\tutor1.png" alt="Tutorial 5" />
             <div class="play-button">
@@ -139,10 +138,10 @@
             </h3>
             <p class="video-author">Oleh: Max Deli Certified Nutritionist</p>
           </div>
-        </div>
+        </a>
 
         <!-- Video 6 -->
-        <div class="video-card">
+        <a href="https://youtu.be/A6SBRY_rLu4" class="video-card">
           <div class="video-thumbnail">
             <img src="Assets\tutor1.png" alt="Tutorial 6" />
             <div class="play-button">
@@ -162,21 +161,13 @@
           </div>
         </div>
       </main>
-    </div>
+    </a>
+
+        
 
     <script>
       // Initialize Feather icons
       feather.replace();
-
-      // Add click events to video cards
-      document.querySelectorAll(".video-card").forEach((card) => {
-        card.addEventListener("click", function () {
-          this.classList.add("clicked");
-          setTimeout(() => {
-            this.classList.remove("clicked");
-          }, 200);
-        });
-      });
     </script>
   </body>
 </html>
