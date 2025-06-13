@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeCounselingPage("https://awarely-be-flask-app.onrender.com/rm_counseling");
   }
   checkLoginStatus();
-  
 });
 
 function initializeReportPage() {
@@ -118,40 +117,56 @@ function redirectTo(url) {
 
 async function checkLoginStatus() {
     try {
-    const res = await fetch("https://awarely-be-flask-app.onrender.com/me", {
-      method: "GET",
-      credentials: "include" // Required for session cookies (Flask-Login)
-    });
+      const res = await fetch("https://awarely-be-flask-app.onrender.com/me", {
+        method: "GET",
+        credentials: "include" // Required for session cookies (Flask-Login)
+      });
 
-    if (res.ok) {
-      const user = await res.json();
-      console.log("Logged in user:", user);
-      handleAuthUI(true, user);
-    } else if (res.status === 401) {
-      if(window.location.pathname === "/lapor.html" || window.location.pathname === "/konsulULT.html" || window.location.pathname === "/konsulKonselor.html"){
-        console.warn("User not authenticated, redirecting to login page.");
-
-        redirectTo("/SignIn.html");
+      if (res.ok) {
+        const user = await res.json();
+        console.log("Logged in user:", user);
+        handleAuthUI(true, {"email": user.email, "username": user.username},user.is_admin);
+      } else if (res.status === 401) {
+        if(window.location.pathname === "/lapor.html" || window.location.pathname === "/konsulULT.html" || window.location.pathname === "/konsulKonselor.html"){
+          console.warn("User not authenticated, redirecting to login page.");
+          redirectTo("/SignIn.html");
+        }
+        console.log("User not logged in.");
+        handleAuthUI(false);
+      } else {
+        console.warn("Unexpected response:", res.status);
+        handleAuthUI(false);
       }
-      console.log("User not logged in.");
-      handleAuthUI(false);
-    } else {
-      console.warn("Unexpected response:", res.status);
-      handleAuthUI(false);
-    }
   } catch (err) {
     console.error("Network or server error:", err);
     handleAuthUI(false);
   }
 }
-
-function handleAuthUI(isLoggedIn, user = null) {
+// function checkAdminStatus(){
+//   return fetch("https://awarely-be-flask-app.onrender.com/api/admin", {
+//       method: "GET",
+//       credentials: "include" // Required for session cookies (Flask-Login)
+//     })
+//     .then(res => res.json())
+//     .then(data => {
+//       if (data.is_admin) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     })
+//     .catch(err => {
+//       console.error("Error checking admin status:", err);
+//     });
+// }
+function handleAuthUI(isLoggedIn, user = null, admin = false) {
+  console.log("Handling auth UI:", isLoggedIn, user, admin);
   if(window.location.pathname === "/index.html" || window.location.pathname === "/"){
     const authSection = document.querySelector(".auth-section");
     const profileSection = document.querySelector(".profile-info");  
     const profileName = profileSection.querySelector(".profile-info-name");
     const profileEmail = profileSection.querySelector(".profile-info-email");
-    const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+    const userProfile = getCurrentUser();
     profileName.textContent = isLoggedIn ? userProfile.username: "Guest User";
     profileEmail.textContent = isLoggedIn ? userProfile.email : "Not logged in";
     // Show or hide auth section based on login status
@@ -170,33 +185,45 @@ function handleAuthUI(isLoggedIn, user = null) {
       // Optionally: show a welcome message or logout button
       const profileSection = document.createElement("div");
       profileSection.className = "profile-section";
-      profileSection.innerHTML = `
-      <button class="profile-button" id="profileButton">
-      <div class="profile-icon" id="profileIcon">U</div>
-                  <span id="profileName">Loading...</span>
-                  <span class="dropdown-arrow">▼</span>
-                  </button>
-                  
-                  <div class="profile-dropdown" id="profileDropdown">
-                  <a href="#profile" class="dropdown-item">
-                  <span class="dropdown-icon">👤</span>
-                  <span>Profile</span>
-                  </a>
-                  <a href="#settings" class="dropdown-item">
-                  <span class="dropdown-icon">⚙️</span>
-                  <span>Settings</span>
-                  </a>
-                  <a href="#logout" class="dropdown-item logout">
-                  <span class="dropdown-icon">🚪</span>
-                  <span>Log Out</span>
-                  </a>
-                  </div>
-                  `;
-                  
-                  if (authSection) {
-                    authSection.replaceWith(profileSection);
-                  }
-                  initializeProfileDropdown();
+      if(admin){
+        profileSection.innerHTML = `
+        <button class="profile-button" id="profileButton">
+        <div class="profile-icon" id="profileIcon">U</div>
+                    <span id="profileName">Loading...</span>
+                    <span class="dropdown-arrow">▼</span>
+                    </button>
+                    
+                    <div class="profile-dropdown" id="profileDropdown">
+                    <a href="dashboard.html" class="dropdown-item">
+                    <span class="dropdown-icon">👤</span>
+                    <span>Dashboard</span>
+                    </a>
+                    <a href="#logout" class="dropdown-item logout">
+                    <span class="dropdown-icon">🚪</span>
+                    <span>Log Out</span>
+                    </a>
+                    </div>
+                    `;
+      }
+      else{
+         profileSection.innerHTML = `
+        <button class="profile-button" id="profileButton">
+        <div class="profile-icon" id="profileIcon">U</div>
+                    <span id="profileName">Loading...</span>
+                    <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="profile-dropdown" id="profileDropdown">
+                    <a href="#logout" class="dropdown-item logout">
+                    <span class="dropdown-icon">🚪</span>
+                    <span>Log Out</span>
+                    </a>
+                    </div>
+                    `;
+      }          
+      if (authSection) {
+        authSection.replaceWith(profileSection);
+      }
+      initializeProfileDropdown();
     }
     else{
       exitButton.style.display = "none"; // Hide exit button if not logged in
@@ -560,34 +587,8 @@ function initializeSignupPage() {
   }
 }
 
-// ==================== UTILITY FUNCTIONS ====================
-
-// Function to handle navigation (can be customized)
-function navigateTo(page) {
-  // Actual navigation implementation
-  switch (page) {
-    case "login":
-      window.location.href = "SignIn.html";
-      break;
-    case "signup":
-      window.location.href = "signup.html";
-      break;
-    case "forgot-password":
-      window.location.href = "forgot-password.html";
-      break;
-    case "dashboard":
-      window.location.href = "dashboard.html";
-      break;
-    case "home":
-      window.location.href = "index.html";
-      break;
-    default:
-      console.log("Unknown page: " + page);
-  }
-}
-
 function getCurrentUser(){
-  return JSON.parse(localStorage.getItem("userProfile")) || null;
+  return JSON.parse(localStorage.getItem("userProfile"));
 }
 // ==================== NAVBAR'S PROFILE FUNCTIONALITY ==================== //
 // Elements
@@ -596,13 +597,12 @@ function initializeProfileDropdown() {
   const profileButton = document.getElementById("profileButton");
   const profileDropdown = document.getElementById("profileDropdown");
   
-  const userJson = localStorage.getItem('userProfile');  // this is a string
+  const userJson = getCurrentUser(); 
 
   if (userJson) {
-    const userObj = JSON.parse(userJson);   // convert string back to object
-    profileName.textContent = userObj.username || "Guest User"; // Set profile name
+    profileName.textContent = userJson.username || "Guest User"; 
   } else {
-    console.log("No user data in localStorage");
+    console.log("No user data in localStorage")
   }
   profileButton.addEventListener("click", function (e) {
     e.stopPropagation();
@@ -624,12 +624,15 @@ function initializeProfileDropdown() {
       const href = this.getAttribute("href");
   
       if (href === "#logout") {
-        localStorage.removeItem("userProfile"); // Clear user data
+        localStorage.removeItem("userProfile"); 
         handleLogout();
       } else if (href === "#profile") {
         alert("Redirect ke halaman Profile");
       } else if (href === "#settings") {
         alert("Redirect ke halaman Settings");
+      }
+      else if( href === "dashboard.html") {
+        redirectTo("dashboard.html"); 
       }
   
       // Close dropdown
