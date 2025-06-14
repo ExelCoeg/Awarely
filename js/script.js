@@ -12,6 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
   if(window.location.pathname === "/index.html" || window.location.pathname === "/"){
     initializeHomePage();
   }
+  if(window.location.pathname === "/dashboard.html"){
+    checkAdminStatus().then(isAdmin => {
+      if(!isAdmin){
+        redirectTo("/index.html");
+      }
+    });
+  }
   if(window.location.pathname === "/konsulULT.html"){
     initializeCounselingPage("https://awarely-be-flask-app.onrender.com/ultksp_counseling");
   }
@@ -142,25 +149,24 @@ async function checkLoginStatus() {
     handleAuthUI(false);
   }
 }
-// function checkAdminStatus(){
-//   return fetch("https://awarely-be-flask-app.onrender.com/api/admin", {
-//       method: "GET",
-//       credentials: "include" // Required for session cookies (Flask-Login)
-//     })
-//     .then(res => res.json())
-//     .then(data => {
-//       if (data.is_admin) {
-//         return true;
-//       } else {
-//         return false;
-//       }
-//     })
-//     .catch(err => {
-//       console.error("Error checking admin status:", err);
-//     });
-// }
+function checkAdminStatus(){
+  return fetch("https://awarely-be-flask-app.onrender.com/me", {
+      method: "GET",
+      credentials: "include" // Required for session cookies (Flask-Login)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.is_admin) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch(err => {
+      console.error("Error checking admin status:", err);
+    });
+}
 function handleAuthUI(isLoggedIn, user = null, admin = false) {
-  console.log("Handling auth UI:", isLoggedIn, user, admin);
   if(window.location.pathname === "/index.html" || window.location.pathname === "/"){
     const authSection = document.querySelector(".auth-section");
     const profileSection = document.querySelector(".profile-info");  
@@ -277,11 +283,11 @@ async function loginUser(email, password) {
   }
 }
 
-function showLoader() {
+export function showLoader() {
   document.getElementById("loading-overlay").style.display = "flex";
 }
 
-function hideLoader() {
+export function hideLoader() {
   document.getElementById("loading-overlay").style.display = "none";
 }
 window.addEventListener("load", () => {
@@ -648,9 +654,6 @@ function handleLogout() {
     logoutUser();
   }
 }
-
-
-
 
 function getInitials(name) {
   return name

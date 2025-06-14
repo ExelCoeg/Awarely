@@ -1,0 +1,195 @@
+:root {
+  --bg: #ede7d9;
+  --text-dark: #2c2c2c;
+  --highlight: #6f4e3f;
+  --white: #ffffff;
+  --accent: #e2c09d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  color: var(--text-dark);
+  padding: 0 1rem;
+}
+
+header {
+  background-color: var(--highlight);
+  color: var(--white);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+header p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+main {
+  padding: 1.5rem 0;
+}
+
+.table-section {
+  margin-bottom: 2rem;
+}
+
+.table-section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: var(--highlight);
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.85rem;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: var(--accent);
+  font-weight: 600;
+}
+
+td {
+  font-weight: 400;
+}
+
+tr:hover {
+  background-color: #f6f1e7;
+}
+
+/* Button styles */
+.btn-approve,
+.btn-deny {
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-right: 0.25rem;
+}
+
+.btn-approve {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-deny {
+  background-color: #fe0000;
+  color: white;
+}
+
+.btn-approve:hover {
+  background-color: #3e8e41;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ====================================
+   Tablet (min-width: 600px)
+==================================== */
+@media (min-width: 600px) {
+  header h1 {
+    font-size: 1.75rem;
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+
+  table {
+    font-size: 0.95rem;
+  }
+
+  .btn-approve,
+  .btn-deny {
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+  }
+
+  .table-section h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* ====================================
+   Desktop (min-width: 992px)
+==================================== */
+@media (min-width: 992px) {
+  body {
+    padding: 0 3rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header p {
+    font-size: 1.1rem;
+  }
+
+  .table-section h2 {
+    font-size: 1.6rem;
+  }
+
+  table {
+    font-size: 1rem;
+  }
+
+  th,
+  td {
+    padding: 1rem;
+  }
+
+  .btn-approve,
+  .btn-deny {
+    padding: 0.6rem 1rem;
+  }
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  background-color: #6F4E3F;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pagination span {
+  font-weight: 600;
+}
