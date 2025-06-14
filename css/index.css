@@ -544,11 +544,6 @@ body, h1,h2,h3,p{
 }
 /* Counseling Section*/
 
-#counseling {
-  width: 80%;
-  text-align: center;
-}
-
 #counseling >  .counseling-content-card{
   z-index: 1000;
 }
