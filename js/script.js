@@ -283,11 +283,11 @@ async function loginUser(email, password) {
   }
 }
 
-export function showLoader() {
+function showLoader() {
   document.getElementById("loading-overlay").style.display = "flex";
 }
 
-export function hideLoader() {
+function hideLoader() {
   document.getElementById("loading-overlay").style.display = "none";
 }
 window.addEventListener("load", () => {
@@ -616,14 +616,14 @@ function initializeProfileDropdown() {
     profileDropdown.classList.toggle("show");
   });
   
-  // Close dropdown when clicking outside
+
   document.addEventListener("click", function (e) {
     if (!document.querySelector(".profile-section").contains(e.target)) {
       profileButton.classList.remove("active");
       profileDropdown.classList.remove("show");
     }
   });
-  // Handle dropdown item clicks
+
   document.querySelectorAll(".dropdown-item").forEach((item) => {
     item.addEventListener("click", function (e) {
       e.preventDefault();
