@@ -62,8 +62,8 @@ function renderULTKSPCounselingsTable() {
       <td>${item.availability || "-"}</td>
       <td>${item.status || "pending"}</td>
       <td>
-        <button onclick="updateStatusULTKSP(${item.id}, 'in_progress')">Yes</button>
-        <button onclick="updateStatusULTKSP(${item.id}, 'completed')">No</button>
+        <button class="btn-approve" onclick="updateStatusULTKSP(${item.id}, 'in_progress')">in_progress</button>
+        <button class="btn-deny" onclick="updateStatusULTKSP(${item.id}, 'completed')">completed</button>
       </td>
     `;
     tbody.appendChild(tr);

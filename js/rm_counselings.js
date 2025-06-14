@@ -63,8 +63,8 @@ function renderRMCounselingsTable() {
       <td>${item.availability || "-"}</td>
       <td>${item.status || "pending"}</td>
       <td>
-        <button onclick="updateStatusRM(${item.id}, 'in_progress')">Yes</button>
-        <button onclick="updateStatusRM(${item.id}, 'completed')">No</button>
+        <button class="btn-approve" onclick="updateStatusRM(${item.id}, 'in_progress')">in_progress</button>
+        <button class="btn-deny" onclick="updateStatusRM(${item.id}, 'completed')">completed</button>
       </td>
     `;
     tbody.appendChild(tr);
