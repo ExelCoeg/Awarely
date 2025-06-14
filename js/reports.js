@@ -85,7 +85,6 @@ function updatePaginationButtons() {
   document.getElementById("nextPage-report").disabled = currentPage >= totalPages;
 }
 
-// Optional loader control (if you have loader overlay)
 function showLoader() {
   const overlay = document.getElementById("loading-overlay");
   if (overlay) overlay.style.display = "flex";
@@ -95,3 +94,7 @@ function hideLoader() {
   const overlay = document.getElementById("loading-overlay");
   if (overlay) overlay.style.display = "none";
 }
+
+
+
+
